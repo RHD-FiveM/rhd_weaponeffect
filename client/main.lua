@@ -51,14 +51,6 @@ local function applyCameraShake(intensity)
     ShakeGameplayCam(EFFECT.cameraShake.type, intensity)
 end
 
----@param weaponHash number
----@param damageMultiplier number
-local function modifyDamage(weaponHash, damageMultiplier)
-    local baseDamage = GetWeaponDamage(weaponHash)
-    local newDamage = math.floor(baseDamage * (1.0 + damageMultiplier))
-    SetWeaponDamageModifier(weaponHash, newDamage)
-end
-
 local function onWeaponShoot()
     local currentTime = GetGameTimer()
     
@@ -95,7 +87,8 @@ local function updateWeaponCache(weapon)
 
     if CACHE_CONFIG then
         if CACHE_CONFIG.damage then
-            modifyDamage(weapon, CACHE_CONFIG.damage --[[@as number]])
+            local baseDamage = GetWeaponDamage(weaponHash)
+            SetWeaponDamageModifier(weapon, baseDamage)
         end
 
         if DEBUG then

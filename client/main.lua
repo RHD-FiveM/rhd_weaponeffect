@@ -87,8 +87,7 @@ local function updateWeaponCache(weapon)
 
     if CACHE_CONFIG then
         if CACHE_CONFIG.damage then
-            local baseDamage = GetWeaponDamage(weaponHash)
-            SetWeaponDamageModifier(weapon, baseDamage)
+            SetWeaponDamageModifier(weapon, CACHE_CONFIG.damage)
         end
 
         if DEBUG then
